@@ -6,6 +6,24 @@
 		<div style="font-size: 25px; line-height: 46px; font-weight: bold">
 			Dada <span style="color: #007ad9">Todo</span>
 		</div>
+		<div
+			class="grid grid-cols-2 gap-0 absolute right-10"
+			style="width: 100px"
+		>
+			<div
+				class="row-span-2"
+				style="
+					border: 1px solid black;
+					text-align: center;
+					font-size: 50px;
+					letter-spacing: -5px;
+				"
+			>
+				15
+			</div>
+			<div style="border: 1px solid black">2022</div>
+			<div style="border: 1px solid black">02</div>
+		</div>
 	</div>
 </template>
 
