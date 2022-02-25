@@ -1,0 +1,4 @@
+[build.environment]
+  NODE_VERSION = "16.13.1"
+  NETLIFY_USE_YARN = "true"
+  YARN_VERSION = "1.22.17"

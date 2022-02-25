@@ -1,3 +1,76 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+#app {
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+}
+.add_wrap input {
+    border-top : 2px solid rgb(3 105 161);
+}
+.add_wrap button {
+    color: rgb(14 165 233);
+    font-weight : bold;
+}
+
+.add_wrap button:hover {
+    color: rgb(2 132 199);
+}
+
+.round {
+    position: relative;
+}
+
+.round label {
+    background-color: #e0f2fe;
+    border: 1px solid #0ea5e9;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 24px;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    width: 24px;
+}
+
+.round label:after {
+    border: 2px solid #0ea5e9;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: 6px;
+    left: 5px;
+    opacity: 0;
+    position: absolute;
+    top: 6px;
+    transform: rotate(-45deg);
+    width: 10px;
+}
+
+.round input[type="checkbox"] {
+    visibility: hidden;
+}
+
+.round input[type="checkbox"]:checked + label {
+    background-color: #e0f2fe;
+    border : 2px solid #0ea5e9
+}
+
+.round input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+}
+
+.round p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.round .line_through {
+    text-decoration-line: line-through;
+    text-decoration-color : rgb(3 105 161);
+}
+
