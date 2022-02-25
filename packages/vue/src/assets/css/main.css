@@ -32,7 +32,7 @@
     height: 24px;
     left: 0;
     position: absolute;
-    top: 2px;
+    top: 6px;
     width: 24px;
 }
 
@@ -50,10 +50,13 @@
     width: 10px;
 }
 
-.round input[type="checkbox"] {
+.round .add_input {
     visibility: hidden;
 }
-
+.round .item_input:focus {
+    outline : 1px solid #0ea5e9;
+    border-radius : 5px;
+}
 .round input[type="checkbox"]:checked + label {
     background-color: #e0f2fe;
     border : 2px solid #0ea5e9

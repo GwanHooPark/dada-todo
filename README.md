@@ -25,7 +25,7 @@ $ yarn start:vue
 ## 📁 Package
 | 패키지 | 설명 |
 | :---------: | --------- |
-| vue | vue 기반 todo application |
+| vue | vue 기반 todo application - [demo](https://dada-vue.netlify.app/) |
 
 
 ## 📙 Coding convention

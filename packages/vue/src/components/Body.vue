@@ -19,21 +19,39 @@
 				Add
 			</button>
 		</div>
-		<ul class="space-y-4 svg-checkbox">
+		<ul class="space-y-1 svg-checkbox">
 			<li
 				class="flex items-center round"
 				v-for="(item, index) in todoItems"
 				:key="index"
 			>
 				<input
+					class="add_input"
 					type="checkbox"
 					:id="`checkbox${item.id}`"
 					v-model="item.done"
 					@change="updateItem(index)"
 				/>
 				<label :for="`checkbox${item.id}`"></label>
-				<p class="ml-4 pl-2 pr-8" :class="{ line_through: item.done }">
-					{{ item.msg }}
+				<p
+					class="ml-4 pl-1 pt-1 pb-1 pr-8 w-full text-left"
+					:class="{ line_through: item.done }"
+				>
+					<template v-if="!item.editable">
+						<div class="pl-1" @click="editItem(index)">
+							{{ item.msg }}
+						</div>
+					</template>
+					<template v-else>
+						<input
+							class="item_input pl-1"
+							type="text"
+							v-model="item.msg"
+							autofocus
+							@blur="updateItem(index)"
+							@keyup.enter="updateItem(index)"
+						/>
+					</template>
 				</p>
 				<button
 					id="js-filter-clear"
@@ -64,6 +82,7 @@ export default {
 			if (this.msg == '') return;
 			this.$store.commit('setItem', {
 				id: this.makeRandom(),
+				editable: false,
 				done: false,
 				msg: this.msg,
 			});
@@ -77,7 +96,12 @@ export default {
 		},
 		updateItem(index) {
 			const item = this.todoItems[index];
+			item.editable = false;
 			this.$store.commit('updateItem', { index, item });
+		},
+		editItem(index) {
+			if (this.todoItems[index].done) return;
+			this.todoItems[index].editable = true;
 		},
 	},
 };
