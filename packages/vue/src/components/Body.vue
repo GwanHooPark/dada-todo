@@ -28,14 +28,14 @@
 				<input
 					class="add_input"
 					type="checkbox"
-					:id="`checkbox${item.id}`"
+					:id="`checkbox${item.no}`"
 					v-model="item.done"
 					@change="updateItem(index)"
 				/>
-				<label :for="`checkbox${item.id}`"></label>
+				<label :for="`checkbox${item.no}`"></label>
 				<p
 					class="ml-4 pl-1 pt-1 pb-1 pr-8 w-full text-left"
-					:class="{ line_through: item.done }"
+					:class="{ done_text: item.done }"
 				>
 					<template v-if="!item.editable">
 						<div class="pl-1" @click="editItem(index)">
@@ -72,6 +72,9 @@ export default {
 			msg: '',
 		};
 	},
+	created() {
+		//this.$store.dispatch('getTodo', this.$store.getters.getCurrentDate);
+	},
 	computed: {
 		todoItems() {
 			return this.$store.getters.getItems;
@@ -80,11 +83,13 @@ export default {
 	methods: {
 		addItem() {
 			if (this.msg == '') return;
-			this.$store.commit('setItem', {
-				id: this.makeRandom(),
+			const date = this.$store.getters.getCurrentDate;
+			this.$store.dispatch('saveTodo', {
+				no: `${date}-${this.makeRandom()}`,
 				editable: false,
 				done: false,
 				msg: this.msg,
+				date: date,
 			});
 			this.msg = '';
 		},

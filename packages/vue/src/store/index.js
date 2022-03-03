@@ -1,26 +1,31 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createPersistedState from 'vuex-persistedstate';
-import Cookies from 'js-cookie';
+// import createPersistedState from 'vuex-persistedstate';
+// import Cookies from 'js-cookie';
+import idb from '@/api/indexedDb';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-	plugins: [
-		createPersistedState({
-			storage: {
-				getItem: key => Cookies.get(key),
-				setItem: (key, value) =>
-					Cookies.set(key, value, { expires: 365, secure: true }),
-				removeItem: key => Cookies.remove(key),
-			},
-		}),
-	],
+	// plugins: [
+	// 	createPersistedState({
+	// 		storage: {
+	// 			getItem: key => Cookies.get(key),
+	// 			setItem: (key, value) =>
+	// 				Cookies.set(key, value, { expires: 365, secure: true }),
+	// 			removeItem: key => Cookies.remove(key),
+	// 		},
+	// 	}),
+	// ],
 	state: {
+		currentDate: '',
 		showType: 'all',
 		items: [],
 	},
 	mutations: {
+		setCurrentDate(state, item) {
+			state.currentDate = item;
+		},
 		setItem(state, item) {
 			state.items.push(item);
 		},
@@ -37,7 +42,25 @@ export default new Vuex.Store({
 			state.showType = type;
 		},
 	},
-	actions: {},
+	actions: {
+		async deleteTodo({ commit }, todo) {
+			await idb.deleteTodo(todo);
+		},
+		async getTodo({ commit, state }, date) {
+			let todo = idb.getTodo(date).then(result => {
+				state.currentDate = date;
+				state.items = [];
+				result.forEach(t => {
+					commit('setItem', t);
+				});
+			});
+		},
+		async saveTodo({ commit }, todo) {
+			await idb.saveTodo(todo).then(() => {
+				commit('setItem', todo);
+			});
+		},
+	},
 	getters: {
 		getItems(state) {
 			if (state.showType == 'all') return state.items;
@@ -48,6 +71,9 @@ export default new Vuex.Store({
 		},
 		getShowType(state) {
 			return state.showType;
+		},
+		getCurrentDate(state) {
+			return state.currentDate;
 		},
 	},
 });

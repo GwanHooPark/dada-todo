@@ -25,7 +25,7 @@
 }
 
 .round label {
-    background-color: #e0f2fe;
+    background-color: #fff;
     border: 1px solid #0ea5e9;
     border-radius: 50%;
     cursor: pointer;
@@ -77,3 +77,50 @@
     text-decoration-color : rgb(3 105 161);
 }
 
+.round .done_text {
+    color : #d5d7dd;
+}
+
+.header .logo {
+    font-size: 25px;
+    line-height: 46px;
+    font-weight: bold
+}
+
+.header .logo span {
+    color: #007ad9;
+}
+
+.header .day {
+    font-size: 50px;
+    letter-spacing: -5px;
+    color: #5a5d6d;
+}
+.header .holiday {
+    color:rgba(239, 68, 68);
+}
+.header .month {
+    margin-top: 17px;
+    line-height: 20px;
+    margin-left: 6px;
+    color: #8a8c97;
+}
+.header .year {
+    color: #9b9da6;
+}
+@media (min-width: 200px) {
+    .header .vc-popover-content-wrapper {
+        left : -84px !important;
+        top : 2px !important;
+    }
+}
+@media (min-width: 640px) {
+    .header .vc-popover-content-wrapper {
+        left : -152px !important;
+        top : 2px !important;
+    }
+}
+
+.header .vc-popover-caret {
+    display: none !important;
+}
