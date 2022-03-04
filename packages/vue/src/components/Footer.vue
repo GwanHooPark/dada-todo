@@ -53,7 +53,7 @@ export default {
 			this.$store.commit('setShowType', type);
 		},
 		clearItem() {
-			this.$store.commit('clearItem');
+			this.$store.dispatch('clearTodo');
 		},
 	},
 };

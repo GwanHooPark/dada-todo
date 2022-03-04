@@ -63,11 +63,14 @@ export default {
 		return new Promise(resolve => {
 			const trans = db.transaction([STORE_NAME], 'readwrite');
 			trans.oncomplete = () => {
-				resolve();
+				resolve(key);
 			};
 
+			let key;
 			const store = trans.objectStore(STORE_NAME);
-			store.put(todo);
+			store.put(todo).onsuccess = e => {
+				key = e.target.result;
+			};
 		});
 	},
 	async updateTodo(todo) {
@@ -93,6 +96,21 @@ export default {
 
 			const store = trans.objectStore(STORE_NAME);
 			store.delete(id);
+		});
+	},
+	async clearTodo(item) {
+		const db = await this.getDb();
+
+		return new Promise(resolve => {
+			const trans = db.transaction([STORE_NAME], 'readwrite');
+			trans.oncomplete = () => {
+				resolve();
+			};
+
+			const store = trans.objectStore(STORE_NAME);
+			item.map(o => o.id).forEach(id => {
+				store.delete(id);
+			});
 		});
 	},
 };

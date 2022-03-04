@@ -53,7 +53,8 @@ export default new Vuex.Store({
 			});
 		},
 		saveTodo({ commit }, todo) {
-			idb.saveTodo(todo).then(() => {
+			idb.saveTodo(todo).then(id => {
+				todo.id = id;
 				commit('setItem', todo);
 			});
 		},
@@ -65,6 +66,11 @@ export default new Vuex.Store({
 		updateTodo({ commit }, { todo, index }) {
 			idb.updateTodo(todo).then(() => {
 				commit('updateItem', { todo, index });
+			});
+		},
+		clearTodo({ commit, state }) {
+			idb.clearTodo(state.items).then(() => {
+				commit('clearItem');
 			});
 		},
 	},
