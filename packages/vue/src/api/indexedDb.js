@@ -29,22 +29,11 @@ export default {
 					autoIncrement: true,
 					keyPath: 'id',
 				});
+
+				//인덱스 생성
 				todos.createIndex('no_idx', 'no');
 				todos.createIndex('date_idx', 'date');
 			};
-		});
-	},
-	async deleteTodo(todo) {
-		let db = await this.getDb();
-
-		return new Promise(resolve => {
-			let trans = db.transaction([STORE_NAME], 'readwrite');
-			trans.oncomplete = () => {
-				resolve();
-			};
-
-			let store = trans.objectStore(STORE_NAME);
-			store.delete(todo.id);
 		});
 	},
 	async getTodo(date) {
@@ -56,8 +45,8 @@ export default {
 				resolve(todo);
 			};
 
-			let store = trans.objectStore(STORE_NAME);
-			let dateIndex = store.index('date_idx');
+			const store = trans.objectStore(STORE_NAME);
+			const dateIndex = store.index('date_idx');
 			let todo = [];
 			dateIndex.openCursor(date).onsuccess = e => {
 				let cursor = e.target.result;
@@ -68,18 +57,42 @@ export default {
 			};
 		});
 	},
-
 	async saveTodo(todo) {
-		let db = await this.getDb();
+		const db = await this.getDb();
 
 		return new Promise(resolve => {
-			let trans = db.transaction([STORE_NAME], 'readwrite');
+			const trans = db.transaction([STORE_NAME], 'readwrite');
 			trans.oncomplete = () => {
 				resolve();
 			};
 
-			let store = trans.objectStore(STORE_NAME);
+			const store = trans.objectStore(STORE_NAME);
 			store.put(todo);
+		});
+	},
+	async updateTodo(todo) {
+		const db = await this.getDb();
+
+		return new Promise(resolve => {
+			const trans = db.transaction([STORE_NAME], 'readwrite');
+			trans.oncomplete = () => {
+				resolve();
+			};
+			const store = trans.objectStore(STORE_NAME);
+			store.put(todo);
+		});
+	},
+	async deleteTodo(id) {
+		const db = await this.getDb();
+
+		return new Promise(resolve => {
+			const trans = db.transaction([STORE_NAME], 'readwrite');
+			trans.oncomplete = () => {
+				resolve();
+			};
+
+			const store = trans.objectStore(STORE_NAME);
+			store.delete(id);
 		});
 	},
 };

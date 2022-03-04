@@ -30,7 +30,7 @@
 					type="checkbox"
 					:id="`checkbox${item.no}`"
 					v-model="item.done"
-					@change="updateItem(index)"
+					@change="updateItem(item)"
 				/>
 				<label :for="`checkbox${item.no}`"></label>
 				<p
@@ -48,15 +48,15 @@
 							type="text"
 							v-model="item.msg"
 							autofocus
-							@blur="updateItem(index)"
-							@keyup.enter="updateItem(index)"
+							@blur="updateItem(item)"
+							@keyup.enter="updateItem(item)"
 						/>
 					</template>
 				</p>
 				<button
 					id="js-filter-clear"
 					class="absolute right-0 text-xs mr-2 text-red-500 focus:outline-none hover:underline"
-					@click="delItem(index)"
+					@click="delItem(item, index)"
 				>
 					Del
 				</button>
@@ -96,13 +96,12 @@ export default {
 		makeRandom() {
 			return Math.floor(Math.random() * 1001);
 		},
-		delItem(index) {
-			this.$store.commit('deleteItem', index);
+		delItem(todo, index) {
+			this.$store.dispatch('deleteTodo', { todo, index });
 		},
-		updateItem(index) {
-			const item = this.todoItems[index];
-			item.editable = false;
-			this.$store.commit('updateItem', { index, item });
+		updateItem(todo, index) {
+			todo.editable = false;
+			this.$store.dispatch('updateTodo', { todo, index });
 		},
 		editItem(index) {
 			if (this.todoItems[index].done) return;

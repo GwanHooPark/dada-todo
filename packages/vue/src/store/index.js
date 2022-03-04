@@ -29,7 +29,7 @@ export default new Vuex.Store({
 		setItem(state, item) {
 			state.items.push(item);
 		},
-		updateItem(state, { index, item }) {
+		updateItem(state, { item, index }) {
 			state.items[index] = item;
 		},
 		deleteItem(state, index) {
@@ -43,11 +43,8 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
-		async deleteTodo({ commit }, todo) {
-			await idb.deleteTodo(todo);
-		},
-		async getTodo({ commit, state }, date) {
-			let todo = idb.getTodo(date).then(result => {
+		getTodo({ commit, state }, date) {
+			idb.getTodo(date).then(result => {
 				state.currentDate = date;
 				state.items = [];
 				result.forEach(t => {
@@ -55,9 +52,19 @@ export default new Vuex.Store({
 				});
 			});
 		},
-		async saveTodo({ commit }, todo) {
-			await idb.saveTodo(todo).then(() => {
+		saveTodo({ commit }, todo) {
+			idb.saveTodo(todo).then(() => {
 				commit('setItem', todo);
+			});
+		},
+		deleteTodo({ commit }, { todo, index }) {
+			idb.deleteTodo(todo.id).then(() => {
+				commit('deleteItem', index);
+			});
+		},
+		updateTodo({ commit }, { todo, index }) {
+			idb.updateTodo(todo).then(() => {
+				commit('updateItem', { todo, index });
 			});
 		},
 	},
