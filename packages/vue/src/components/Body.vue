@@ -111,7 +111,7 @@ export default {
 
 <style>
 .todo_list {
-	height: 340px;
+	max-height: 317px;
 	overflow: auto;
 }
 .todo_list::-webkit-scrollbar {
