@@ -11,7 +11,7 @@
 		<div
 			class="relative px-6 pt-10 pb-8 bg-white shadow-xl ring-gray-900/5 sm:max-w-lg sm:mx-auto sm:rounded-lg sm:px-10"
 		>
-			<div class="max-w-md mx-auto">
+			<div class="wrapper_width mx-auto">
 				<LogoComponent></LogoComponent>
 				<div class="divide-y divide-gray-300/50">
 					<BodyComponent></BodyComponent>
@@ -33,3 +33,8 @@ export default {
 	},
 };
 </script>
+<style scoped>
+.wrapper_width {
+	width: 300px;
+}
+</style>

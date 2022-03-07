@@ -110,14 +110,15 @@
 }
 @media (min-width: 200px) {
     .header .vc-popover-content-wrapper {
-        left : -84px !important;
-        top : 2px !important;
+        left : 100px !important;
+        top : 13px !important;
     }
 }
+
 @media (min-width: 640px) {
     .header .vc-popover-content-wrapper {
         left : -152px !important;
-        top : 2px !important;
+        top : 13px !important;
     }
 }
 

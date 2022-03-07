@@ -1,5 +1,5 @@
 <template>
-	<div class="py-8 text-base leading-7 space-y-6 text-gray-600">
+	<div class="pt-8 pb-2 text-base leading-7 space-y-6 text-gray-600">
 		<div
 			id="js-user-input"
 			class="flex items-center justify-between relative add_wrap"
@@ -19,7 +19,7 @@
 				Add
 			</button>
 		</div>
-		<ul class="space-y-1 svg-checkbox">
+		<ul class="space-y-1 svg-checkbox todo_list">
 			<li
 				class="flex items-center round"
 				v-for="(item, index) in todoItems"
@@ -37,10 +37,8 @@
 					class="ml-4 pl-1 pt-1 pb-1 pr-8 w-full text-left"
 					:class="{ done_text: item.done }"
 				>
-					<template v-if="!item.editable">
-						<div class="pl-1" @click="editItem(index)">
-							{{ item.msg }}
-						</div>
+					<template v-if="!item.editable" @click="editItem(index)">
+						{{ item.msg }}
 					</template>
 					<template v-else>
 						<input
@@ -111,4 +109,23 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.todo_list {
+	height: 340px;
+	overflow: auto;
+}
+.todo_list::-webkit-scrollbar {
+	width: 9px;
+}
+.todo_list::-webkit-scrollbar-thumb {
+	background-color: rgb(14 165 233);
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+.todo_list::-webkit-scrollbar-track {
+	background-color: rgb(224, 242, 254);
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px white;
+}
+</style>
