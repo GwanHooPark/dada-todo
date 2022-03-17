@@ -8,6 +8,10 @@
     "start:vue": "yarn workspace vue serve",
     "kill:vue": "npx kill-port 3000",
     "build:vue": "yarn workspace  vue build",
+    "start:react": "yarn workspace react-js start",
+    "kill:react": "npx kill-port 3000",
+    "start:react-ts": "yarn workspace react-ts start",
+    "kill:react-ts": "npx kill-port 3000",
     "clean": "lerna clean",
     "bootstrap": "yarn install"
   },
